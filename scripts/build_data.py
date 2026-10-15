@@ -182,6 +182,7 @@ def main():
         li_groups = {}                       # 군 지역: 읍·면(법정동) 아래 리 행들을 합산해 읍·면 레코드로 만든다
         for r in hlatest:
             code, ctpv, sg, nm, ri, tot, male, fem, hhc = r
+            sg = sg or ("세종시" if (ctpv or "").startswith("세종") else ctpv)        # 세종은 시군구명이 비어 있다
             if ri:
                 ri_by7[code[:7]].append([ri, tot, hhc])
                 g = li_groups.setdefault((ctpv, sg, nm, code[:7]), {"codes": [], "tot": 0, "male": 0, "fem": 0, "hh": 0})
