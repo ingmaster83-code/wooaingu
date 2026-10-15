@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if page.url == '/' %}{{ page.title }}{% elsif page.title %}{{ page.title }} | 우아인구{% else %}우아인구 - 우리 동네 인구·세대수·연령별 구성{% endif %}</title>
+  <meta name="description" content="{% if page.description %}{{ page.description | escape }}{% else %}{{ site.description | strip_newlines | escape }}{% endif %}">
+  <link rel="canonical" href="{{ page.url | absolute_url }}">
+
+  <meta property="og:type" content="{% if page.layout == 'beop' %}article{% else %}website{% endif %}">
+  <meta property="og:title" content="{% if page.url == '/' %}{{ page.title | escape }}{% elsif page.title %}{{ page.title | escape }} | 우아인구{% else %}우아인구 - 우리 동네 인구·세대수·연령별 구성{% endif %}">
+  <meta property="og:description" content="{% if page.description %}{{ page.description | escape }}{% else %}{{ site.description | strip_newlines | escape }}{% endif %}">
+  <meta property="og:image" content="{{ '/assets/og-image.png' | absolute_url }}">
+  <meta property="og:url" content="{{ page.url | absolute_url }}">
+  <meta property="og:site_name" content="우아인구">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-9ZGENFSXWC"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-9ZGENFSXWC');</script>
+
+  <!-- AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6464921081676309" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="{{ '/' | relative_url }}" class="site-logo">
+      <span class="logo-icon">👥</span>
+      <span class="logo-text">우아인구</span>
+    </a>
+    <nav class="header-nav">
+      <a href="{{ '/rank/' | relative_url }}">랭킹</a>
+      <a href="{{ '/region/' | relative_url }}">지역별</a>
+      <a href="{{ '/search/' | relative_url }}">검색</a>
+      <a href="https://wooahouse.com">WooaHouse →</a>
+    </nav>
+  </div>
+</header>
+
+<script src="{{ '/assets/js/wooa-sites-bar.js' | relative_url }}"></script>
+<script src="{{ '/assets/js/ad-dev-placeholder.js' | relative_url }}"></script>
+
+{% unless page.layout == 'beop' or page.layout == 'dong' or page.layout == 'sigungu' or page.layout == 'city' or page.layout == 'age' or page.layout == 'do' or page.layout == 'rank' or page.layout == 'rankindex' or page.url == '/' %}
+<div class="top-ad-bar">
+  {% include ad.html %}
+</div>
+{% endunless %}
+
+<main class="site-main">
+  {{ content }}
+</main>
+<script src="{{ '/assets/js/wooa-sidebar.js' | relative_url }}"></script>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-disclaimer">
+      인구·세대 통계는 행정안전부 주민등록 인구통계(공공데이터포털, 매월 말일 기준 주민등록 거주자·거주불명자·재외국민 포함)를 읍면동 단위로 정리한 것입니다. 통계청 인구총조사(실제 거주 기준)와 수치가 다를 수 있습니다.<br>
+      주민등록 인구는 주민등록상 주소지 기준이라 실제 거주 인구와 차이가 있을 수 있으며, 연령대는 만 나이 10세 단위(0~9세, 10~19세 …) 구간입니다.
+    </p>
+    <p class="footer-links">
+      <a href="https://wooahouse.com">WooaHouse</a> ·
+      <a href="https://wooatown.wooahouse.com">우아동네</a> ·
+      <a href="https://wooasanggwon.wooahouse.com">우아상권</a> ·
+      <a href="https://wooahakgun.wooahouse.com">우아학군</a> ·
+      <a href="https://wooaapt.wooahouse.com">우아아파트</a> ·
+      <a href="{{ '/privacy/' | relative_url }}">개인정보처리방침</a>
+    </p>
+    <p class="copyright">&copy; 2026 우아인구 · WooaHouse. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>

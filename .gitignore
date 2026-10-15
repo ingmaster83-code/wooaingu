@@ -1,0 +1,8 @@
+_site/
+.jekyll-cache/
+_rawdata/cache/
+_rawdata/*.log
+data/
+__pycache__/
+*.pyc
+.env

@@ -1,0 +1,142 @@
+---
+layout: default
+---
+
+<div class="page-with-sidebar">
+<div class="region-page">
+
+  <nav class="breadcrumb" aria-label="위치">
+    <a href="/">홈</a>
+    <span>›</span>
+    <a href="/region/{{ page.doShort | uri_escape }}/">{{ page.doShort }}</a>
+    <span>›</span>
+    {% if page.city %}<a href="{{ page.cityUrl }}">{{ page.city }}</a>
+    <span>›</span>
+    {% endif %}<a href="{{ page.sgUrl }}">{{ page.sigungu }}</a>
+    <span>›</span>
+    <span>{{ page.dong }}</span>
+  </nav>
+
+  <div class="region-page-header">
+    <h1>👥 {{ page.sigungu }} {{ page.dong }} 인구·세대수</h1>
+    <p>{{ page.ym }} 말일 기준 · 주민등록 인구 {{ page.tot }}명 · 평균 연령 {{ page.avg }}세</p>
+  </div>
+
+  <div class="ratio-box {% if page.has12 %}{% if page.up12 %}ratio-ok{% else %}ratio-warn{% endif %}{% endif %}">
+    <div class="ratio-num" style="font-size:1.7rem;min-width:150px;">{{ page.tot }}<small>명</small></div>
+    <div class="ratio-txt">
+      <b>{{ page.doShort }} {{ page.sigungu }} {{ page.dong }} 주민등록 인구</b>
+      남자 {{ page.male }}명 · 여자 {{ page.fem }}명{% if page.hasHh %} · 세대수 {{ page.hh }}세대(세대당 {{ page.hhn }}명) · 1인 가구 {{ page.r1 }}{% endif %}<br>65세 이상 {{ page.r65 }} · 14세 이하 {{ page.r014 }}{% if page.has12 %} · 1년 전 대비 <strong>{{ page.d12 }}</strong> ({{ page.g12 }}){% endif %}
+    </div>
+  </div>
+
+  <p class="summary-p">{{ page.summary }}</p>
+
+  <div class="info-box">
+    ℹ️ 행정안전부 주민등록 인구통계를 <b>행정동</b> 단위로 정리했습니다. 주민등록 주소지 기준이라 실제 거주 인구와 차이가 있을 수 있고, 연령은 만 나이입니다.
+  </div>
+
+  <div class="ad-slot">
+    {% include ad.html %}
+  </div>
+
+  <h2 class="group-title">👪 {{ page.dong }} 연령 구조</h2>
+  <div class="tbl-wrap"><table class="trade-tbl">
+    <thead><tr><th>구분</th><th>인구</th><th>비중</th><th style="width:34%;">비교</th></tr></thead>
+    <tbody>{% for g in page.grp3 %}<tr><td>{{ g.label }}</td><td>{{ g.n }}명</td><td>{{ g.share }}</td><td><div class="bar"><span style="width:{{ g.w }}%"></span></div></td></tr>
+    {% endfor %}</tbody>
+  </table></div>
+  <p style="color:#6B7280;font-size:.84rem;margin-top:6px;">평균 연령 {{ page.avg }}세, 중위 연령 {{ page.med }}세, 노령화지수 {{ page.aging }}(14세 이하 100명당 65세 이상), 총부양비 {{ page.dep }}(생산연령 100명당 유소년·고령 인구)입니다.</p>
+
+  <h2 class="group-title">👨‍👩‍👧 {{ page.dong }} 연령대별 인구</h2>
+  <div class="tbl-wrap"><table class="trade-tbl">
+    <thead><tr><th>연령대</th><th>남자</th><th>여자</th><th>합계</th><th>비중</th><th style="width:30%;">비교</th></tr></thead>
+    <tbody>{% for a in page.ageRows %}<tr><td>{{ a.label }}</td><td>{{ a.male }}</td><td>{{ a.fem }}</td><td><b>{{ a.n }}</b></td><td>{{ a.share }}</td><td><div class="bar"><span style="width:{{ a.w }}%"></span></div></td></tr>
+    {% endfor %}</tbody>
+  </table></div>
+  <p style="color:#6B7280;font-size:.84rem;margin-top:6px;">10세 단위로 가장 많은 연령대는 {{ page.topAgeLabel }}({{ page.topAgeShare }})이고, 20·30대 {{ page.r2039 }}, 9세 이하 {{ page.r9 }}입니다. 여자 100명당 남자는 {{ page.sexr }}명입니다.</p>
+
+<!-- ad2 -->
+  <div class="ad-slot">
+    {% include ad.html %}
+  </div>
+
+  <h2 class="group-title">📊 {{ page.dong }} 5세 단위 연령별 인구</h2>
+  <div class="tbl-wrap"><table class="trade-tbl">
+    <thead><tr><th>연령</th><th>남자</th><th>여자</th><th>합계</th><th>비중</th><th style="width:30%;">비교</th></tr></thead>
+    <tbody>{% for a in page.a5Rows %}<tr><td>{{ a.label }}</td><td>{{ a.male }}</td><td>{{ a.fem }}</td><td><b>{{ a.n }}</b></td><td>{{ a.share }}</td><td><div class="bar"><span style="width:{{ a.w }}%"></span></div></td></tr>
+    {% endfor %}</tbody>
+  </table></div>
+
+  {% if page.hasHh %}
+  <h2 class="group-title">🏠 {{ page.dong }} 세대 구성</h2>
+  <div class="tbl-wrap"><table class="trade-tbl">
+    <thead><tr><th>세대원 수</th><th>세대수</th><th>비중</th><th style="width:34%;">비교</th></tr></thead>
+    <tbody>{% for s in page.sizeRows %}<tr><td>{{ s.label }}</td><td>{{ s.n }}</td><td>{{ s.share }}</td><td><div class="bar"><span style="width:{{ s.w }}%"></span></div></td></tr>
+    {% endfor %}</tbody>
+  </table></div>
+  <p style="color:#6B7280;font-size:.84rem;margin-top:6px;">전체 {{ page.hh }}세대, 세대당 평균 {{ page.hhn }}명이며 1인 가구 비율은 {{ page.r1 }}입니다.</p>
+  {% endif %}
+
+  {% if page.hasOne %}
+  <h2 class="group-title">🚪 {{ page.dong }} 1인 가구 연령대 <small style="font-weight:500;color:#6B7280;">(가구주 나이 기준)</small></h2>
+  <div class="tbl-wrap"><table class="trade-tbl">
+    <thead><tr><th>연령대</th><th>1인 가구</th><th>그중 여자</th><th>비중</th><th style="width:30%;">비교</th></tr></thead>
+    <tbody>{% for o in page.oneRows %}<tr><td>{{ o.label }}</td><td>{{ o.n }}</td><td>{{ o.fem }}</td><td>{{ o.share }}</td><td><div class="bar"><span style="width:{{ o.w }}%"></span></div></td></tr>
+    {% endfor %}</tbody>
+  </table></div>
+  {% endif %}
+
+  {% if page.trCount > 1 %}
+  <h2 class="group-title">📈 {{ page.dong }} 월별 인구 추이 <small style="font-weight:500;color:#6B7280;">(최근 {{ page.trCount }}개월, 월말 기준)</small></h2>
+  <div class="tbl-wrap"><table class="trade-tbl">
+    <thead><tr><th>기준월</th><th>인구</th><th>전월 대비</th><th style="width:34%;">비교</th></tr></thead>
+    <tbody>{% for t in page.trRows %}<tr><td>{{ t.ym }}</td><td>{{ t.n }}명</td><td class="{% if t.up %}chg-up{% else %}chg-down{% endif %}">{{ t.d }}</td><td><div class="bar"><span style="width:{{ t.w }}%"></span></div></td></tr>
+    {% endfor %}</tbody>
+  </table></div>
+  {% endif %}
+
+  {% if page.yrCount > 1 %}
+  <h2 class="group-title">🗓️ {{ page.dong }} 연도별 변화 <small style="font-weight:500;color:#6B7280;">(같은 달 기준)</small></h2>
+  <div class="tbl-wrap"><table class="trade-tbl">
+    <thead><tr><th>기준월</th><th>인구</th><th>전년 대비</th><th>세대수</th><th>1인 가구</th><th>65세 이상</th></tr></thead>
+    <tbody>{% for y in page.yrRows %}<tr><td>{{ y.ym }}</td><td>{{ y.n }}명</td><td class="{% if y.up %}chg-up{% else %}chg-down{% endif %}">{{ y.chg }}</td><td>{{ y.hh }}</td><td>{{ y.r1 }}</td><td>{{ y.r65 }}</td></tr>
+    {% endfor %}</tbody>
+  </table></div>
+  {% endif %}
+
+  {% if page.riCount > 0 %}
+  <h2 class="group-title">🏡 {{ page.dong }} 마을(리)별 인구 <small style="font-weight:500;color:#6B7280;">(법정리 기준{% if page.riCount > 60 %}, 상위 60곳{% endif %})</small></h2>
+  <div class="tbl-wrap"><table class="trade-tbl">
+    <thead><tr><th>마을(리)</th><th>인구</th><th>세대수</th><th>세대당 인구</th></tr></thead>
+    <tbody>{% for r in page.ri %}<tr><td>{{ r.name }}</td><td>{{ r.tot }}명</td><td>{{ r.hh }}</td><td>{{ r.hhn }}명</td></tr>
+    {% endfor %}</tbody>
+  </table></div>
+  {% endif %}
+
+  <h2 class="group-title">🧭 {{ page.sigungu }} 안에서의 위치</h2>
+  <ul style="color:#374151;line-height:1.9;font-size:.93rem;padding-left:22px;">
+    <li>{{ page.sigungu }} 전체 동네 중 인구 <b>{{ page.rkSg }}위</b> (전체 {{ page.nSg }}곳)</li>
+    <li>{{ page.sigungu }}에서 65세 이상 비율이 높은 순서로 <b>{{ page.rk65Sg }}번째</b></li>
+    <li>전국 읍면동 중 인구 <b>{{ page.rkNat }}위</b></li>
+  </ul>
+
+  {% if page.neighbors.size > 0 %}
+  <h2 class="group-title">📍 {{ page.sigungu }} 다른 동네 인구</h2>
+  <div class="chip-row">
+    {% for n in page.neighbors %}<a class="chip" href="{{ n.url }}">{{ n.name }}<em>{{ n.tot }}명</em></a>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% include faq.html %}
+
+  <div class="tip-box">
+    <h2>{{ page.dong }} 인구 통계 안내</h2>
+    <p>인구는 매월 말일 기준으로 갱신되며, 주민등록 거주자·거주불명자·재외국민을 모두 포함합니다. 이사·출생·사망 신고가 반영되는 시차가 있어 월별 증감은 실제 이동과 조금 다를 수 있습니다.</p>
+    <p class="hub-links" style="margin-top:10px;"><a href="{{ page.sgUrl }}">{{ page.sigungu }} 인구 →</a> <a href="/rank/">인구 랭킹 →</a> <a href="{{ page.sgLinks.apt }}">{{ page.sigungu }} 아파트 실거래가 →</a> <a href="{{ page.sgLinks.biz }}">{{ page.sigungu }} 상권분석 →</a> <a href="/guide/">인구 통계 가이드 →</a></p>
+  </div>
+
+</div>
+<aside class="tool-sidebar"></aside>
+</div>

@@ -1,0 +1,22 @@
+---
+layout: default
+title: 지역별 인구 - 시도별 인구·세대수·고령화
+description: 시/도별 주민등록 인구와 세대수, 65세 이상 비율, 1년 인구 증감. 서울, 경기, 부산 등 지역별 인구 현황과 시군구·동네별 통계를 확인하세요.
+---
+
+<div class="page-with-sidebar" style="margin-top:20px;">
+<div class="side-main">
+<div class="section">
+  <nav class="breadcrumb"><a href="/">홈</a> <span>›</span> <span>지역별 인구</span></nav>
+  <h1 style="font-size:1.6rem;font-weight:800;margin:20px 0 8px;">📍 지역별 인구</h1>
+  <p style="color:#6B7280;margin-bottom:32px;">시/도를 선택하세요 ({{ site.data.ingu_stats.ym }} 말일 기준)</p>
+
+  <div class="region-grid">
+    {% for d in site.data.ingu_stats.do_rows %}<a href="/region/{{ d.name | uri_escape }}/" class="region-btn"><span class="region-icon">👥</span>{{ d.name }}
+      <div class="region-count">{{ d.tot }}명 · 시군구 {{ d.sgs }}곳 · 65세 이상 {{ d.r65 }}</div></a>
+    {% endfor %}
+  </div>
+</div>
+</div>
+<aside class="tool-sidebar"></aside>
+</div>

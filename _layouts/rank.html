@@ -1,0 +1,50 @@
+---
+layout: default
+---
+
+<div class="page-with-sidebar">
+<div class="region-page">
+
+  <nav class="breadcrumb" aria-label="위치">
+    <a href="/">홈</a>
+    <span>›</span>
+    <a href="/rank/">랭킹</a>
+    <span>›</span>
+    <span>{{ page.scope }} {{ page.rankTitle }}</span>
+  </nav>
+
+  <div class="region-page-header">
+    <h1>🏆 {{ page.scope }} {{ page.rankTitle }} TOP {{ page.count }}</h1>
+    <p>{{ page.ym }} 말일 기준 · {{ page.desc }}</p>
+  </div>
+
+  <p class="summary-p">{{ page.summary }}</p>
+
+  <div class="ad-slot">
+    {% include ad.html %}
+  </div>
+
+  <div class="tbl-wrap"><table class="trade-tbl">
+    <thead><tr><th>순위</th><th>동네</th>{% for c in page.cols %}<th>{{ c }}</th>{% endfor %}</tr></thead>
+    <tbody>{% for r in page.rows %}<tr><td>{{ r.rank }}</td><td><a href="{{ r.url }}">{{ r.name }}</a><br><small style="color:#6B7280;">{{ r.loc }}</small></td>{% for v in r.c %}<td>{{ v }}</td>{% endfor %}</tr>
+    {% endfor %}</tbody>
+  </table></div>
+
+<!-- ad2 -->
+  <div class="ad-slot">
+    {% include ad.html %}
+  </div>
+
+  <div class="tip-box">
+    <h2>순위를 볼 때</h2>
+    <ul>
+      <li>행정안전부 주민등록 인구통계 기준이라 실제 거주 인구와 차이가 있을 수 있습니다.</li>
+      <li>비율 순위는 인구가 너무 적은 동네가 상위를 차지하지 않도록 최소 인구·세대수 기준을 두었습니다. 기준은 맨 위 설명에 적어 두었습니다.</li>
+      <li>연령은 만 나이 1세 단위 자료를 묶어 계산했습니다. "65세 이상"은 만 65세 이상 전체이고, 평균 연령은 1세 단위 인구로 구한 값입니다.</li>
+    </ul>
+    <p class="hub-links" style="margin-top:10px;"><a href="/rank/">다른 랭킹 →</a>{% if page.doShort %} <a href="/region/{{ page.doShort | uri_escape }}/">{{ page.doShort }} 인구 →</a>{% endif %} <a href="/guide/">인구 통계 가이드 →</a></p>
+  </div>
+
+</div>
+<aside class="tool-sidebar"></aside>
+</div>

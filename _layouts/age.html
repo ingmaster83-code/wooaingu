@@ -1,0 +1,72 @@
+---
+layout: default
+---
+
+<div class="page-with-sidebar">
+<div class="region-page">
+
+  <nav class="breadcrumb" aria-label="위치">
+    <a href="/">홈</a>
+    <span>›</span>
+    <a href="/region/{{ page.doShort | uri_escape }}/">{{ page.doShort }}</a>
+    <span>›</span>
+    <a href="{{ page.sgUrl }}">{{ page.sigungu }}</a>
+    <span>›</span>
+    <span>{{ page.ageName }} 인구</span>
+  </nav>
+
+  <div class="region-page-header">
+    <h1>👨‍👩‍👧 {{ page.doShort }} {{ page.sigungu }} {{ page.ageName }} 인구</h1>
+    <p>{{ page.ym }} 말일 기준 · {{ page.n }}명 (전체의 {{ page.share }})</p>
+  </div>
+
+  <div class="ratio-box">
+    <div class="ratio-num" style="font-size:1.7rem;min-width:150px;">{{ page.n }}<small>명</small></div>
+    <div class="ratio-txt">
+      <b>{{ page.sigungu }} {{ page.ageName }} 주민등록 인구</b>
+      남자 {{ page.male }}명 · 여자 {{ page.fem }}명 · 전체 인구 {{ page.tot }}명 중 <strong>{{ page.share }}</strong><br>전국 평균 {{ page.natShare }} 대비 {{ page.diff }}{% if page.rank %} · 전국 {{ page.rankN }}개 시군구 중 비율 {{ page.rank }}위{% endif %}
+    </div>
+  </div>
+
+  <p class="summary-p">{{ page.summary }}</p>
+
+  <div class="ad-slot">
+    {% include ad.html %}
+  </div>
+
+  <h2 class="group-title">📍 {{ page.ageName }} 인구가 많은 동네</h2>
+  <div class="tbl-wrap"><table class="trade-tbl">
+    <thead><tr><th>동네</th><th>{{ page.label }} 인구</th><th>동네 내 비율</th><th>동네 전체 인구</th></tr></thead>
+    <tbody>{% for d in page.byCount %}<tr><td><a href="{{ d.url }}">{{ d.name }}</a></td><td>{{ d.n }}명</td><td>{{ d.share }}</td><td>{{ d.tot }}명</td></tr>
+    {% endfor %}</tbody>
+  </table></div>
+
+<!-- ad2 -->
+  <div class="ad-slot">
+    {% include ad.html %}
+  </div>
+
+  <h2 class="group-title">📊 {{ page.label }} 비율이 높은 동네 <small style="font-weight:500;color:#6B7280;">(인구 1,000명 이상)</small></h2>
+  <div class="tbl-wrap"><table class="trade-tbl">
+    <thead><tr><th>동네</th><th>{{ page.label }} 비율</th><th>{{ page.label }} 인구</th><th>동네 전체 인구</th></tr></thead>
+    <tbody>{% for d in page.byShare %}<tr><td><a href="{{ d.url }}">{{ d.name }}</a></td><td>{{ d.share }}</td><td>{{ d.n }}명</td><td>{{ d.tot }}명</td></tr>
+    {% endfor %}</tbody>
+  </table></div>
+
+  <h2 class="group-title">🧭 {{ page.sigungu }} 다른 연령대 인구</h2>
+  <div class="chip-row">
+    {% for o in page.others %}<a class="chip" href="{{ o.url }}">{{ o.label }}<em>{{ o.n }}명 · {{ o.share }}</em></a>
+    {% endfor %}
+  </div>
+
+  {% include faq.html %}
+
+  <div class="tip-box">
+    <h2>연령대별 인구 안내</h2>
+    <p>연령은 만 나이 10세 단위 구간으로 집계됩니다. 행정안전부 주민등록 인구통계(매월 말일 기준)이며 주소지 기준이라 실제 거주 인구와 차이가 있을 수 있습니다.</p>
+    <p class="hub-links" style="margin-top:10px;"><a href="{{ page.sgUrl }}">{{ page.sigungu }} 인구 전체 →</a> <a href="/rank/">인구 랭킹 →</a> <a href="/guide/">인구 통계 가이드 →</a></p>
+  </div>
+
+</div>
+<aside class="tool-sidebar"></aside>
+</div>

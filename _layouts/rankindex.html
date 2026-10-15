@@ -1,0 +1,51 @@
+---
+layout: default
+---
+
+<div class="page-with-sidebar">
+<div class="region-page">
+
+  <nav class="breadcrumb" aria-label="위치">
+    <a href="/">홈</a>
+    <span>›</span>
+    <span>랭킹</span>
+  </nav>
+
+  <div class="region-page-header">
+    <h1>🏆 인구 랭킹</h1>
+    <p>{{ page.ym }} 말일 기준 주민등록 인구로 본 동네·시군구 순위</p>
+  </div>
+
+  <div class="ad-slot">
+    {% include ad.html %}
+  </div>
+
+  <h2 class="group-title">🏙️ 시군구 랭킹</h2>
+  <div class="chip-row">
+    {% for k in page.sgKinds %}<a class="chip" href="/rank/{{ k.k }}/">{{ k.t }}</a>
+    {% endfor %}
+  </div>
+
+  {% for k in page.kinds %}
+  <h2 class="group-title">{% if k.k == "pop" %}🏆{% elsif k.k == "single" %}🚪{% elsif k.k == "old" %}🧓{% elsif k.k == "young" %}🧑‍💼{% elsif k.k == "kids" %}🧒{% elsif k.k == "avglow" %}🌱{% elsif k.k == "avghigh" %}🌳{% elsif k.k == "grow" %}📈{% else %}📉{% endif %} {{ k.t }}</h2>
+  <div class="chip-row">
+    <a class="chip" href="/rank/{{ k.k }}/">전국</a>
+    {% for d in page.dos %}<a class="chip" href="/rank/{{ k.k }}/{{ d | uri_escape }}/">{{ d }}</a>
+    {% endfor %}
+  </div>
+  {% endfor %}
+
+<!-- ad2 -->
+  <div class="ad-slot">
+    {% include ad.html %}
+  </div>
+
+  <div class="tip-box">
+    <h2>랭킹 기준</h2>
+    <p>행정안전부 주민등록 인구통계(매월 말일 기준)를 읍면동 단위로 집계한 순위입니다. 비율 순위는 인구·세대수가 너무 적은 동네를 제외하고, 증감 순위는 1년 전 인구가 3,000명 이상인 동네만 비교합니다.</p>
+    <p class="hub-links" style="margin-top:10px;"><a href="/guide/">인구 통계 가이드 →</a> <a href="/region/">지역별 인구 →</a></p>
+  </div>
+
+</div>
+<aside class="tool-sidebar"></aside>
+</div>

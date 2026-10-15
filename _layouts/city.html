@@ -1,0 +1,77 @@
+---
+layout: default
+---
+
+<div class="page-with-sidebar">
+<div class="region-page">
+
+  <nav class="breadcrumb" aria-label="위치">
+    <a href="/">홈</a>
+    <span>›</span>
+    <a href="/region/{{ page.doShort | uri_escape }}/">{{ page.doShort }}</a>
+    <span>›</span>
+    <span>{{ page.sigungu }}</span>
+  </nav>
+
+  <div class="region-page-header">
+    <h1>👥 {{ page.doShort }} {{ page.sigungu }} 인구·세대수</h1>
+    <p>{{ page.ym }} 말일 기준 · 주민등록 인구 {{ page.tot }}명 · 구 {{ page.guRows.size }}곳 · 동네 {{ page.dongCount }}곳</p>
+  </div>
+
+  <div class="ratio-box {% if page.up12 %}ratio-ok{% else %}ratio-warn{% endif %}">
+    <div class="ratio-num" style="font-size:1.7rem;min-width:150px;">{{ page.tot }}<small>명</small></div>
+    <div class="ratio-txt">
+      <b>{{ page.doShort }} {{ page.sigungu }} 주민등록 인구</b>
+      남자 {{ page.male }}명 · 여자 {{ page.fem }}명{% if page.hh != "-" %} · 세대수 {{ page.hh }}세대(세대당 {{ page.hhn }}명) · 1인 가구 {{ page.r1 }}{% endif %}<br>65세 이상 {{ page.r65 }}{% if page.d12 != "-" %} · 1년간 <strong>{{ page.d12 }}</strong> ({{ page.g12 }}){% endif %}
+    </div>
+  </div>
+
+  <p class="summary-p">{{ page.summary }}</p>
+
+  <div class="ad-slot">
+    {% include ad.html %}
+  </div>
+
+  <h2 class="group-title">🏙️ {{ page.sigungu }} 구별 인구</h2>
+  <div class="tbl-wrap"><table class="trade-tbl">
+    <thead><tr><th>구</th><th>인구</th><th>세대수</th><th>동네</th><th>65세 이상</th><th>1인 가구</th><th>평균 연령</th><th>1년 증감</th></tr></thead>
+    <tbody>{% for g in page.guRows %}<tr><td><a href="{{ g.url }}">{{ g.name }}</a></td><td>{{ g.tot }}명</td><td>{{ g.hh }}</td><td>{{ g.dongs }}곳</td><td>{{ g.r65 }}</td><td>{{ g.r1 }}</td><td>{{ g.avg }}세</td><td class="{% if g.up %}chg-up{% else %}chg-down{% endif %}">{{ g.g12 }}</td></tr>
+    {% endfor %}</tbody>
+  </table></div>
+
+<!-- ad2 -->
+  <div class="ad-slot">
+    {% include ad.html %}
+  </div>
+
+  <h2 class="group-title">📍 {{ page.sigungu }} 인구가 많은 동네 <small style="font-weight:500;color:#6B7280;">(상위 {{ page.dongRows.size }}곳 / 전체 {{ page.dongTotal }}곳)</small></h2>
+  <div class="tbl-wrap"><table class="trade-tbl">
+    <thead><tr><th>동네</th><th>인구</th><th>세대수</th><th>65세 이상</th><th>1인 가구</th><th>평균 연령</th><th>1년 증감</th></tr></thead>
+    <tbody>{% for d in page.dongRows %}<tr><td><a href="{{ d.url }}">{{ d.name }}</a></td><td>{{ d.tot }}명</td><td>{{ d.hh }}</td><td>{{ d.r65 }}</td><td>{{ d.r1 }}</td><td>{{ d.avg }}세</td><td class="{% if d.up %}chg-up{% else %}chg-down{% endif %}">{{ d.g12 }}</td></tr>
+    {% endfor %}</tbody>
+  </table></div>
+
+  <h2 class="group-title">👨‍👩‍👧 {{ page.sigungu }} 연령대별 인구</h2>
+  <div class="tbl-wrap"><table class="trade-tbl">
+    <thead><tr><th>연령대</th><th>남자</th><th>여자</th><th>합계</th><th>비중</th><th style="width:30%;">비교</th></tr></thead>
+    <tbody>{% for a in page.ageRows %}<tr><td>{{ a.label }}</td><td>{{ a.male }}</td><td>{{ a.fem }}</td><td><b>{{ a.n }}</b></td><td>{{ a.share }}</td><td><div class="bar"><span style="width:{{ a.w }}%"></span></div></td></tr>
+    {% endfor %}</tbody>
+  </table></div>
+
+  <h2 class="group-title">🧭 연령대별 인구 보기</h2>
+  <div class="chip-row">
+    {% for a in page.ageLinks %}<a class="chip" href="{{ a.url }}">{{ a.label }}<em>{{ a.n }}명 · {{ a.share }}</em></a>
+    {% endfor %}
+  </div>
+
+  {% include faq.html %}
+
+  <div class="tip-box">
+    <h2>{{ page.sigungu }} 인구 통계 안내</h2>
+    <p>구가 있는 시는 구별 인구와 시 전체 합계를 함께 보여줍니다. 행정안전부 주민등록 인구통계(매월 말일 기준)를 행정동 단위로 합산했습니다.</p>
+    <p class="hub-links" style="margin-top:10px;"><a href="/region/{{ page.doShort | uri_escape }}/">{{ page.doShort }} 전체 →</a> <a href="/rank/">인구 랭킹 →</a> <a href="{{ page.sgLinks.apt }}">{{ page.sigungu }} 아파트 실거래가 →</a></p>
+  </div>
+
+</div>
+<aside class="tool-sidebar"></aside>
+</div>

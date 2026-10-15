@@ -1,0 +1,35 @@
+title: 우아인구 - 우리 동네 인구·세대수·연령별 구성
+description: >-
+  전국 읍면동의 주민등록 인구와 세대수, 1인 가구 비율, 연령대별 인구, 최근 인구 증감을
+  행정안전부 주민등록 인구통계로 정리했습니다. 매월 갱신합니다.
+url: "https://wooaingu.wooahouse.com"
+baseurl: ""
+lang: ko
+timezone: Asia/Seoul
+author: WooaHouse
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+plugins:
+  - jekyll-seo-tag
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - scripts/
+  - data/
+  - "*.py"
+  - "*.log"
+  - README.md
+  - .gitignore
+  - .env
+  - vendor/
+  - _rawdata/cache/
+
+# 설계 메모: scripts/fetch_ingu.py 가 공공데이터포털 행정안전부 주민등록 인구 오픈API 두 개(행정동 성/연령별, 법정동 인구·세대현황)를
+# 3개월 단위로 받아 _rawdata/cache 에 쌓고 월별 압축 파일(_rawdata/age, _rawdata/hh)을 만든다. scripts/fetch_hhsize.py 가 행정동 세대원수별 세대수 파일을 받는다.
+# scripts/build_data.py 가 _rawdata/ingu_dong.json, ingu_beop.json, ingu_meta.json 을 만들고 _plugins/ingu_generator.rb 가
+# 행정동·법정동·시군구·시·시도·랭킹 페이지와 사이트맵(40,000건씩 분할)을 생성한다. 갱신은 매월 fetch → build_data → 빌드·배포.
